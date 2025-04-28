@@ -36,3 +36,62 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0fdfa 100%);
+  color: #222;
+}
+
+/* Optional: Enhance the jumbotron/card look */
+.jumbotron {
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+/* Optional: Navbar shadow */
+.navbar {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav.hide-mobile-menu {
+    display: none !important;
+  }
+  .navbar-nav.show-mobile-menu {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 200px;
+    background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    z-index: 1000;
+    padding: 1rem 0.5rem;
+  }
+  .navbar-nav .nav-link {
+    width: 100%;
+    margin: 0.25rem 0;
+    padding: 0.5rem 1rem;
+    text-align: left;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-nav {
+    display: flex !important;
+    flex-direction: row;
+    position: static !important;
+    background: none !important;
+    box-shadow: none !important;
+    width: auto !important;
+    align-items: center;
+  }
+  .navbar-nav .nav-link {
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+}
