@@ -1,35 +1,59 @@
-import React, { useState, useContext, createContext } from 'react';
+import React, { useState, useContext, createContext,useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+// import { saveTodayGames } from './data/Games'; // Import the function to save games
 
-const todaysGames = [
-  { league: 'La Liga', teams: 'Espanyol vs Getafe', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
-  { league: 'Ligue 1', teams: 'Rennes vs FC Nantes', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
-  { league: 'Liga Portugal', teams: 'Rio Ave FC vs Santa Clara Azores', prediction: 'Home or Away', result: 'Lost', resultClass: 'danger' },
-  { league: 'Liga Portugal', teams: 'Porto vs FC Famalicao', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
-  { league: 'Turkey Super Lig', teams: 'Galatasaray vs BB Bodrumspor', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
-  { league: 'England Championship', teams: 'Blackburn Rovers vs Millwall FC', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
-  { league: 'Serie A', teams: 'Fiorentina vs Empoli', prediction: 'Draw No Bet - Home Win', result: 'Pending', resultClass: 'secondary' },
-  { league: 'Bundesliga', teams: 'Bochum vs Union Berlin', prediction: 'Over 1.5 Goals', result: 'Pending', resultClass: 'secondary' },
-];
+// const todaysGames = [
+//   { league: 'La Liga', teams: 'Espanyol vs Getafe', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
+//   { league: 'Ligue 1', teams: 'Rennes vs FC Nantes', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
+//   { league: 'Liga Portugal', teams: 'Rio Ave FC vs Santa Clara Azores', prediction: 'Home or Away', result: 'Lost', resultClass: 'danger' },
+//   { league: 'Liga Portugal', teams: 'Porto vs FC Famalicao', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
+//   { league: 'Turkey Super Lig', teams: 'Galatasaray vs BB Bodrumspor', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
+//   { league: 'England Championship', teams: 'Blackburn Rovers vs Millwall FC', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
+//   { league: 'Serie A', teams: 'Fiorentina vs Empoli', prediction: 'Draw No Bet - Home Win', result: 'Pending', resultClass: 'secondary' },
+//   { league: 'Bundesliga', teams: 'Bochum vs Union Berlin', prediction: 'Over 1.5 Goals', result: 'Pending', resultClass: 'secondary' },
+// ];
+// export const saveTodayGames = (games) => {
+//   localStorage.setItem('todayGames', JSON.stringify(games));
+// };
 
-const previousGames = [
-  { league: 'La Liga', teams: 'Espanyol vs Getafe', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
-  { league: 'Ligue 1', teams: 'Rennes vs FC Nantes', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
-  { league: 'Liga Portugal', teams: 'Rio Ave FC vs Santa Clara Azores', prediction: 'Home or Away', result: 'Lost', resultClass: 'danger' },
-  { league: 'Liga Portugal', teams: 'Porto vs FC Famalicao', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
-  { league: 'Turkey Super Lig', teams: 'Galatasaray vs BB Bodrumspor', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
-  { league: 'England Championship', teams: 'Blackburn Rovers vs Millwall FC', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
-];
+// function TodayGames() {
+//   const { date } = useParams();
+  
 
-const freeGames = [
-  { league: 'Premier League', teams: 'Liverpool vs Chelsea', prediction: 'Over 2.5 Goals' },
-  { league: 'La Liga', teams: 'Real Madrid vs Valencia', prediction: 'Home Win' },
-  { league: 'Serie A', teams: 'Juventus vs Inter', prediction: 'Both Teams to Score' },
-];
+//   return null; // No UI, just side effect
+// }
+
+
+// const todaysGames = saveTodayGames ? [saveTodayGames] : [
+//   { league: 'La Liga', teams: 'Espanyol vs Getafe', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
+//   { league: 'Ligue 1', teams: 'Rennes vs FC Nantes', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
+//   { league: 'Liga Portugal', teams: 'Rio Ave FC vs Santa Clara Azores', prediction: 'Home or Away', result: 'Lost', resultClass: 'danger' },
+//   { league: 'Liga Portugal', teams: 'Porto vs FC Famalicao', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
+//   { league: 'Turkey Super Lig', teams: 'Galatasaray vs BB Bodrumspor', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
+//   { league: 'England Championship', teams: 'Blackburn Rovers vs Millwall FC', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
+//   { league: 'Serie A', teams: 'Fiorentina vs Empoli', prediction: 'Draw No Bet - Home Win', result: 'Pending', resultClass: 'secondary' },
+//   { league: 'Bundesliga', teams: 'Bochum vs Union Berlin', prediction: 'Over 1.5 Goals', result: 'Pending', resultClass: 'secondary' },
+//   ];
+// console.log('todaysGames', todaysGames);
+
+// const previousGames = [
+//   { league: 'La Liga', teams: 'Espanyol vs Getafe', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
+//   { league: 'Ligue 1', teams: 'Rennes vs FC Nantes', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
+//   { league: 'Liga Portugal', teams: 'Rio Ave FC vs Santa Clara Azores', prediction: 'Home or Away', result: 'Lost', resultClass: 'danger' },
+//   { league: 'Liga Portugal', teams: 'Porto vs FC Famalicao', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
+//   { league: 'Turkey Super Lig', teams: 'Galatasaray vs BB Bodrumspor', prediction: 'Over 1.5 Goals', result: 'Won', resultClass: 'success' },
+//   { league: 'England Championship', teams: 'Blackburn Rovers vs Millwall FC', prediction: 'Home or Draw', result: 'Won', resultClass: 'success' },
+// ];
+
+// const freeGames = [
+//   { league: 'Premier League', teams: 'Liverpool vs Chelsea', prediction: 'Over 2.5 Goals' },
+//   { league: 'La Liga', teams: 'Real Madrid vs Valencia', prediction: 'Home Win' },
+//   { league: 'Serie A', teams: 'Juventus vs Inter', prediction: 'Both Teams to Score' },
+// ];
 const bookingCode = 'APUH6K';
 
 // Auth context for global login state
@@ -53,6 +77,52 @@ function ProtectedRoute({ children }) {
 }
 
 function Home() {
+  const [todaysGames, setTodayGames] = useState([]);
+  const [freeGames, setFreeGames] = useState([]);
+  const [previousGames, setPreviousGames] = useState([]);
+
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await axios.get(`https://wonit-backend.onrender.com/games/`);
+        const allGames = response.data.data;
+
+        const today = new Date().toISOString().split('T')[0]; // format like '2025-04-28'
+
+        const todayList = [];
+        const freeList = [];
+        const previousList = [];
+
+        allGames.forEach(game => {
+          // const  = game.prediction_time; 
+          const gameDateObj = new Date(); // Convert to JS Date object
+          const gameDate = gameDateObj.toISOString().split('T')[0]; // Extract only 'YYYY-MM-DD'// Assuming your backend sends date like '2025-04-28'
+          console.log(game.prediction_day)
+          if ("today" === game.prediction_day) {
+            todayList.push(game);
+
+            if (game.game_type === 'free') {
+              freeList.push(game);
+            }
+          } else {
+            previousList.push(game);
+          }
+        });
+
+        setTodayGames(todayList);
+        setFreeGames(freeList);
+        setPreviousGames(previousList);
+
+        console.log(gameDate);
+        
+
+      } catch (error) {
+        console.error('Error fetching games:', error);
+      }
+    };
+
+    fetchGames();
+  }, []);
   return (
     <div className="container mt-5">
       {/* Hero Section */}
