@@ -48,7 +48,6 @@ function Home() {
           setFreeGames(freeList);
           setPreviousGames(previousList);
   
-          console.log(gameDate);
           
   
         } catch (error) {
