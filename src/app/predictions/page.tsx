@@ -1,5 +1,4 @@
 'use client';
-
 import Link from 'next/link';
 import React,{ useState,useEffect } from 'react';
 import axios from 'axios';
@@ -34,7 +33,7 @@ useEffect(() => {
         response = await axios.get<Game[]>(`https://wonit-backend.onrender.com/other-games?formattedDate=${formattedDate}`);
       }
 
-      const gamesData = response.data.data || response.data;
+      const gamesData = response.data || response.data;
       setGames(gamesData);
       console.log(gamesData);
     } catch (error) {
