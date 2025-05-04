@@ -1,6 +1,5 @@
-import Image from "next/image";
+'use client'
 import Link from "next/link";
-import { motion } from "framer-motion";
 import React,{ useState,useEffect } from "react";
 import axios from "axios";
 
